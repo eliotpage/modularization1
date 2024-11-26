@@ -1,25 +1,20 @@
-def query(querystring={
-    "location":"33, -84",
-    "fields":["temperature", "cloudCover"],
-    "units":"imperial",
-    "timesteps":"1d",
-    "apikey":"44rcPRlfvH9W2CJa5FoZgHD9mUWWWkVt"}):
-
+def get(params):
+    
     import requests
-    import json
 
     url = "https://api.tomorrow.io/v4/timelines"
 
-    x = requests.get(url, querystring)
+    #GET request using api
+    x = requests.get(url, params)
 
-
-    exec(f'results = {x.text}')
-
-    results = results['data']
-    results = results['timelines']
-    results = results[0]
-
-    return results
+    return x
 
 if __name__ == '__main__':
-    print(query())
+    import processing
+    print(processing.format(get({
+        'location':'60, 60',
+        'timestep': 'current',
+        'fields':'temperature',
+        'units':'metric',
+        'apikey':'44rcPRlfvH9W2CJa5FoZgHD9mUWWWkVt'
+        })))
